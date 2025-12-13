@@ -1,0 +1,265 @@
+:root {
+    --bg0: #070a12;
+    --bg1: rgba(12, 14, 28, 0.72);
+    --stroke: rgba(255, 255, 255, 0.10);
+    --stroke2: rgba(255, 255, 255, 0.14);
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.66);
+    --muted2: rgba(255, 255, 255, 0.52);
+
+    /* градиент под твою аву */
+    --g1: #5a7cff;
+    --g2: #7a3cff;
+    --g3: #ff2f78;
+
+    --radius: 18px;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.sm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(1200px 600px at 50% 20%, rgba(90, 124, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 70% 80%, rgba(255, 47, 120, 0.14), transparent 60%),
+    rgba(0, 0, 0, 0.68);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.sm-dialog {
+    position: relative;
+    width: min(980px, 96vw);
+    height: min(78vh, 760px);
+    background: linear-gradient(180deg, rgba(12, 14, 28, 0.82), rgba(8, 10, 18, 0.78));
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+}
+
+
+
+.sm-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 10px 14px;
+}
+
+.sm-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: var(--muted);
+    font-size: 12.5px;
+    letter-spacing: 0.2px;
+}
+
+.sm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--g1), var(--g3));
+    box-shadow: 0 0 18px rgba(90, 124, 255, 0.45);
+}
+
+.sm-iconBtn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.86);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.sm-iconBtn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.sm-body {
+    height: calc(100% - 56px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 14px 14px 14px;
+    gap: 12px;
+}
+
+.sm-imageWrap {
+    position: relative;
+    flex: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.sm-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.01);
+    user-select: none;
+}
+
+.sm-gradient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.00) 55%, rgba(0, 0, 0, 0.42) 78%, rgba(0, 0, 0, 0.66) 100%);
+}
+
+.sm-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 12, 24, 0.55);
+    backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.90);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    z-index: 2;
+}
+
+.sm-nav span {
+    font-size: 26px;
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.sm-nav:hover {
+    transform: translateY(-50%) scale(1.04);
+    background: rgba(18, 20, 40, 0.62);
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+.sm-left { left: 14px; }
+.sm-right { right: 14px; }
+
+.sm-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 12px 10px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px);
+}
+
+.sm-meta {
+    min-width: 0;
+}
+
+.sm-title {
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    margin-bottom: 6px;
+}
+
+.sm-desc {
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.35;
+    max-width: 62ch;
+    margin-bottom: 8px;
+}
+
+.sm-hint {
+    color: var(--muted2);
+    font-size: 12.5px;
+    line-height: 1.3;
+}
+
+.sm-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.sm-primary {
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(135deg, rgba(90, 124, 255, 0.95), rgba(122, 60, 255, 0.92), rgba(255, 47, 120, 0.85));
+    color: rgba(255, 255, 255, 0.96);
+    font-weight: 700;
+    font-size: 13.5px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(90, 124, 255, 0.18);
+    transition: transform 0.15s ease, filter 0.15s ease;
+    white-space: nowrap;
+}
+
+.sm-primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+.sm-secondary {
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 650;
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+}
+
+.sm-secondary:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.20);
+}
+
+@media (max-width: 720px) {
+    .sm-dialog {
+        height: 84vh;
+    }
+
+    .sm-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sm-actions {
+        width: 100%;
+    }
+
+    .sm-primary,
+    .sm-secondary {
+        width: 100%;
+    }
+
+    .sm-desc {
+        max-width: 100%;
+    }
+}
