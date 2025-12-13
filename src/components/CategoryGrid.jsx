@@ -11,7 +11,7 @@ export default function CategoryGrid({ categories, onSelect }) {
                         <div className="cardOverlay" />
                         <div className="cardMeta">
                             <div className="cardTitle">{c.title}</div>
-                            <div className="cardSub">{c.description}</div>
+                            {/*<div className="cardSub">{c.description}</div>*/}
                         </div>
                     </div>
                 </button>
