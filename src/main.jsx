@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { initTelegramUI } from "./lib/telegram.js";
 import "./StyleModal.css"
-import "./index.css.css"
+import "./index.css"
 import "./App.css"
 
 initTelegramUI();
