@@ -1,6 +1,7 @@
 services:
   frontend:
     build: .
+    container_name: ai_photostudio_bot_miniapp_frontend
     restart: unless-stopped
     ports:
-      - "127.0.0.1:5112:5111"
+      - "127.0.0.1:5112:80"
