@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frontend_dev:
-    container_name: ai_photoshoot_frontend_dev
+    container_name: ai_photostudio_bot_miniapp
     build:
       context: .
       dockerfile: Dockerfile
