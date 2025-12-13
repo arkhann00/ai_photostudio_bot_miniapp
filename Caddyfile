@@ -1,0 +1,7 @@
+aiphotostudio.ru {
+    reverse_proxy frontend:80
+}
+
+www.aiphotostudio.ru {
+    redir https://aiphotostudio.ru{uri}
+}

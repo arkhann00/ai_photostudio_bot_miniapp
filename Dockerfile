@@ -1,13 +1,21 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-
-RUN npm install --no-audit --no-fund
+RUN npm ci --no-audit --no-fund
 
 COPY . .
 
-EXPOSE 5111
+# на всякий случай выравниваем бинарник под версию пакета
+RUN npm rebuild esbuild --force
 
-CMD ["sh", "-c", "npm install --no-audit --no-fund && npm rebuild esbuild --force && npm run dev -- --host 0.0.0.0 --port 5111"]
+RUN npm run build
+
+
+FROM nginx:1.27-alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
