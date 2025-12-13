@@ -1,7 +1,7 @@
 
 
 // export const API_BASE = "http://localhost:8000"
-export const API_BASE = "http://62.113.42.113:8001"
+export const API_BASE = "https://api.aiphotostudio.ru"
 
 export function toAbsUrl(maybePath) {
     if (!maybePath) return "";
