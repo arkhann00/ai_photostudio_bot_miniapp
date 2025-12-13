@@ -1,26 +1,33 @@
-export function buildTelegramDeepLink({ botUsername, startPayload }) {
-    const safeBot = String(botUsername || "").replace(/^@/, "").trim();
-    const safePayload = encodeURIComponent(String(startPayload || "start"));
-    // Универсальный вариант: https, работает и внутри Telegram, и снаружи
-    return `https://t.me/${safeBot}?start=${safePayload}`;
+export function getTelegramWebApp() {
+    const w = window;
+    return w && w.Telegram && w.Telegram.WebApp ? w.Telegram.WebApp : null;
 }
 
-export function openTelegramLinkSmart(url) {
-    // Если это Mini App внутри Telegram, используем WebApp API
-    const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+export function isTelegramWebApp() {
+    return !!getTelegramWebApp();
+}
+
+export function initTelegramUI() {
+    const tg = getTelegramWebApp();
+    if (!tg) return;
+
+    tg.ready();
+    tg.expand();
 
     try {
-        if (tg && typeof tg.openTelegramLink === "function") {
-            tg.openTelegramLink(url);
-            return;
-        }
-        if (tg && typeof tg.openLink === "function") {
-            tg.openLink(url);
-            return;
-        }
-    } catch (e) {
-        // fallthrough
+        if (typeof tg.setHeaderColor === "function") tg.setHeaderColor("#0b0b0b");
+        if (typeof tg.setBackgroundColor === "function") tg.setBackgroundColor("#0b0b0b");
+    } catch {
+        // ignore
     }
+}
 
-    window.open(url, "_blank", "noopener,noreferrer");
+export function getInitData() {
+    const tg = getTelegramWebApp();
+    return tg && tg.initData ? tg.initData : "";
+}
+
+export function getTelegramUser() {
+    const tg = getTelegramWebApp();
+    return tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : null;
 }

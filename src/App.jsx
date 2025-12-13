@@ -6,8 +6,6 @@ import CategoryGrid from "./components/CategoryGrid.jsx";
 import StylesGrid from "./components/StylesGrid.jsx";
 import StyleModal from "./components/StyleModal.jsx";
 
-const BOT_USERNAME = "ai_photostudio_bot"; // поменяешь при необходимости
-
 export default function App() {
     const [gender, setGender] = useState("male"); // male | female
     const [loading, setLoading] = useState(true);
@@ -55,10 +53,7 @@ export default function App() {
         <div className="app">
             <div className="bgGlow" />
 
-            <TopBar
-                title={title}
-                onBack={selectedCategory ? () => setSelectedCategoryId(null) : null}
-            />
+            <TopBar title={title} onBack={selectedCategory ? () => setSelectedCategoryId(null) : null} />
 
             <div className="container">
                 {!selectedCategory && (
@@ -67,7 +62,6 @@ export default function App() {
 
                         <div className="hint">
                             <div className="hintTitle">Выбери категорию</div>
-                            {/*<div className="hintText">Минимализм + футуризм, как в твоём бренде.</div>*/}
                         </div>
                     </div>
                 )}
@@ -78,7 +72,6 @@ export default function App() {
                             <div className="spinner" />
                             <div>
                                 <div className="panelTitle">Загружаю каталог…</div>
-                                {/*<div className="panelText">Категории и стили подтягиваются с сервера.</div>*/}
                             </div>
                         </div>
                     </div>
@@ -95,17 +88,11 @@ export default function App() {
                 )}
 
                 {!loading && !error && !selectedCategory && (
-                    <CategoryGrid
-                        categories={catalog.categories}
-                        onSelect={(id) => setSelectedCategoryId(id)}
-                    />
+                    <CategoryGrid categories={catalog.categories} onSelect={(id) => setSelectedCategoryId(id)} />
                 )}
 
                 {!loading && !error && selectedCategory && (
-                    <StylesGrid
-                        category={selectedCategory}
-                        onOpenStyle={(index) => setModalStyleIndex(index)}
-                    />
+                    <StylesGrid category={selectedCategory} onOpenStyle={(index) => setModalStyleIndex(index)} />
                 )}
             </div>
 
@@ -116,11 +103,6 @@ export default function App() {
                 onClose={() => setModalStyleIndex(-1)}
                 onPrev={() => setModalStyleIndex((i) => (i <= 0 ? styles.length - 1 : i - 1))}
                 onNext={() => setModalStyleIndex((i) => (i >= styles.length - 1 ? 0 : i + 1))}
-                telegramLinkBuilder={(style) => {
-                    // deep-link на бота: /start=web_style_<id>_<gender>
-                    const payload = `web_style_${style.id}_${style.category_id}_${style.gender}`;
-                    return `https://t.me/${BOT_USERNAME}?start=${encodeURIComponent(payload)}`;
-                }}
             />
         </div>
     );

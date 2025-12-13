@@ -2,14 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import "../StyleModal.css";
 import { toAbsUrl, openBotForGeneration } from "../api.js";
 
-export default function StyleModal({
-                                       open,
-                                       styles,
-                                       index,
-                                       onClose,
-                                       onPrev,
-                                       onNext,
-                                   }) {
+export default function StyleModal({ open, styles, index, onClose, onPrev, onNext }) {
     const style = useMemo(() => {
         if (!styles || styles.length === 0) return null;
         if (index < 0 || index >= styles.length) return styles[0];
@@ -25,7 +18,6 @@ export default function StyleModal({
             if (e.key === "ArrowRight") onNext?.();
         };
 
-        // блокируем скролл под модалкой
         const prevOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
 
@@ -51,24 +43,14 @@ export default function StyleModal({
 
                     <button className="sm-iconBtn" onClick={onClose} aria-label="Закрыть">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                            <path
-                                d="M6 6l12 12M18 6L6 18"
-                                stroke="currentColor"
-                                strokeWidth="2.2"
-                                strokeLinecap="round"
-                            />
+                            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
                         </svg>
                     </button>
                 </div>
 
                 <div className="sm-body">
                     <div className="sm-imageWrap">
-                        <img
-                            className="sm-img"
-                            src={toAbsUrl(style.image_url)}
-                            alt={style.title}
-                            draggable="false"
-                        />
+                        <img className="sm-img" src={toAbsUrl(style.image_url)} alt={style.title} draggable="false" />
 
                         <button className="sm-nav sm-left" onClick={onPrev} aria-label="Назад">
                             <span>‹</span>
@@ -85,7 +67,7 @@ export default function StyleModal({
                             <div className="sm-title">{style.title}</div>
                             <div className="sm-desc">{style.description}</div>
                             <div className="sm-hint">
-                                После перехода в бота просто отправь селфи — генерация начнётся автоматически.
+                                После перехода в бота выбери аватар (или загрузи новый) — и генерация начнётся.
                             </div>
                         </div>
 
@@ -93,9 +75,6 @@ export default function StyleModal({
                             <button className="sm-primary" onClick={handleGenerate}>
                                 Сделать генерацию
                             </button>
-                            {/*<button className="sm-secondary" onClick={onClose}>*/}
-                            {/*    Назад*/}
-                            {/*</button>*/}
                         </div>
                     </div>
                 </div>
