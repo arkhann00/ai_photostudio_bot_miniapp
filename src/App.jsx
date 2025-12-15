@@ -7,7 +7,7 @@ import StylesGrid from "./components/StylesGrid.jsx";
 import StyleModal from "./components/StyleModal.jsx";
 
 export default function App() {
-    const [gender, setGender] = useState("male"); // male | female
+    const [gender, setGender] = useState("female"); // male | female
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [catalog, setCatalog] = useState({ categories: [] });

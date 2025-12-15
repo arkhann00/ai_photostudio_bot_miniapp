@@ -10,7 +10,7 @@ export default function CategoryGrid({ categories, onSelect }) {
                         <img src={toAbsUrl(c.image_url)} alt={c.title} loading="lazy" />
                         <div className="cardOverlay" />
                         <div className="cardMeta">
-                            <div className="cardTitle">{c.title}</div>
+                            {/*<div className="cardTitle">{c.title}</div>*/}
                             {/*<div className="cardSub">{c.description}</div>*/}
                         </div>
                     </div>
