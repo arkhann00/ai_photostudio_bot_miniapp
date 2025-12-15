@@ -45,20 +45,19 @@ body{
 }
 
 .container{
-    width:min(1100px, 100%);
-    margin: 0 auto;
-    /* было: padding: 16px 14px 28px; */
-    padding: 14px 14px calc(28px + var(--safe-bottom));
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    /* было 14px слева/справа */
+    padding: 12px 6px calc(24px + var(--safe-bottom));
 }
 
-
-.topbar{
-    position:sticky;
-    top:0;
-    z-index:10;
-    backdrop-filter: blur(14px);
-    background: rgba(7,10,18,.55);
-    border-bottom: 1px solid rgba(255,255,255,.08);
+.topbarInner{
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    /* было: calc(10px + safe-top) 14px 10px */
+    padding: calc(8px + var(--safe-top)) 6px 8px;
 }
 
 .topbarInner{
@@ -221,18 +220,20 @@ body{
 .grid{
     display:grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 12px;
+    /* меньше gap => шире карточки */
+    gap: 10px;
 }
+
 @media (min-width: 720px){
     .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .grid3{ grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
 }
 .grid3{
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    gap: 8px;
+    /* на телефоне 2 колонки => плитки заметно крупнее */
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
 }
-@media (min-width: 720px){
-    .grid3{ gap: 10px; }
-}
+
 
 .card{
     border:0;
@@ -472,4 +473,25 @@ body{
     .segBtn{
         padding: 11px 14px;
     }
+}
+
+@media (max-width: 420px){
+    .container{
+        padding: 10px 4px calc(22px + var(--safe-bottom));
+    }
+
+    .toolbar{
+        margin-bottom: 10px;
+    }
+
+    .segBtn{
+        padding: 12px 14px;
+    }
+
+    .grid{ gap: 8px; }
+    .grid3{ gap: 8px; }
+
+    /* чуть увеличим сами плитки визуально */
+    .cardMedia{ border-radius: 22px; }
+    .thumb{ border-radius: 18px; }
 }
