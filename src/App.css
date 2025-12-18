@@ -40,3 +40,172 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* ====== Gender switch: full-width, equal buttons ====== */
+
+/* toolbar делаем "растягиваемым" по ширине */
+.toolbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+}
+
+/* сам свитчер занимает всю строку */
+.toolbar .segmented{
+    width: 100%;
+    flex: 1 1 100%;
+    min-width: 0;
+
+    /* чуть “дороже” выглядит на всю ширину */
+    border-radius: 18px;
+    padding: 5px;
+}
+
+/* две кнопки делим поровну */
+.toolbar .segmented .segBtn{
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+
+    /* на полной ширине лучше выглядят чуть выше */
+    padding: 12px 0;
+}
+
+/* чтобы активная не "прыгала" из-за border:1px */
+.toolbar .segmented .segBtn.active{
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+/* если рядом есть .hint / другие элементы — пусть идут ниже */
+.toolbar .hint,
+.toolbar .panel,
+.toolbar .pill{
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+/* на широких экранах можно снова делать 2 колонки,
+   но свитчер оставляем на всю ширину сверху */
+@media (min-width: 720px){
+    .toolbar{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .toolbar .segmented{
+        grid-column: 1 / -1; /* растянуть через обе колонки */
+        width: 100%;
+    }
+
+    .toolbar .hint,
+    .toolbar .panel{
+        width: auto;
+    }
+}
+
+/* ====== Full-width title "Выбери категорию" ====== */
+
+/* toolbar уже растягивает элементы, но явно закрепим */
+.toolbar{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: stretch;
+}
+
+/* свитчер и хинт — каждый на всю ширину */
+.toolbar .segmented{
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+.toolbar .hint{
+    width: 100%;
+    flex: 1 1 100%;
+    min-width: 0;
+
+    /* “широкая плашка” */
+    padding: 14px 16px;
+    border-radius: 22px;
+    text-align: center;
+
+    /* чуть выразительнее, чтобы было как заголовок секции */
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 14px 40px rgba(0,0,0,.30);
+}
+
+.toolbar .hintTitle{
+    font-weight: 950;
+    letter-spacing: .2px;
+    font-size: 18px;
+    line-height: 1.15;
+}
+
+/* если когда-то добавишь подзаголовок — тоже будет красиво */
+.toolbar .hintText{
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,.62);
+}
+
+/* на широких экранах оставим также: свитчер и плашка на всю ширину */
+@media (min-width: 720px){
+    .toolbar{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .toolbar .segmented{
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .toolbar .hint{
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+/* ===== Center TopBar title ===== */
+
+.topbarInner{
+    position: relative; /* база для абсолютного центра */
+}
+
+/* Центруем блок с точкой и названием */
+.brand{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    flex: 0 0 auto;
+    min-width: 0;
+
+    /* чтобы не залезало на кнопку назад */
+    max-width: calc(100% - (42px * 2) - (12px * 2));
+    justify-content: center;
+}
+
+/* Элипсис, если длинный заголовок */
+.brandTitle{
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Кнопка назад остаётся слева поверх всего */
+.iconBtn{
+    position: relative;
+    z-index: 2;
+}
+
+/* На всякий случай — brand тоже над фоном */
+.brand{
+    z-index: 1;
+}
