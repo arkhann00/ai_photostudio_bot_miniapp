@@ -635,3 +635,62 @@ body {
   top: 12px;
   left: 12px;
 }
+
+.badgeUsage {
+  position: absolute;
+  z-index: 4;
+  right: 10px;
+  bottom: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 10px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(10px);
+
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.badgeUsage__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(
+    135deg,
+    rgba(96, 120, 255, 0.22),
+    rgba(255, 64, 128, 0.16)
+  );
+  line-height: 1;
+  font-size: 12px;
+}
+
+.badgeUsage__text {
+  min-width: 14px;
+  text-align: right;
+}
+
+/* если 0 — делаем чуть менее заметным, но всё равно видимым */
+.badgeUsage--zero {
+  opacity: 0.65;
+}
+
+/* на всякий случай (если захочешь использовать модификатор) */
+.badgeUsage--thumb {
+  right: 10px;
+  bottom: 10px;
+}
