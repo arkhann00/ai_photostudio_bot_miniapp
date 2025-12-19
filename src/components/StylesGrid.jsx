@@ -4,6 +4,12 @@ import { toAbsUrl } from "../api.js";
 export default function StylesGrid({ category, onOpenStyle }) {
   const styles = category.styles || [];
 
+  const formatCount = (n) => {
+    const num = Number(n);
+    if (!Number.isFinite(num)) return "0";
+    return num.toLocaleString("ru-RU");
+  };
+
   return (
     <div>
       <div className="sectionHeader">
@@ -23,6 +29,14 @@ export default function StylesGrid({ category, onOpenStyle }) {
           {styles.map((s, i) => {
             const isNew = Boolean(s?.is_new ?? s?.new);
 
+            // Поддержка разных имён поля из API:
+            // usage_count / uses_count / used_count / uses
+            const usageCountRaw =
+              s?.usage_count ?? s?.uses_count ?? s?.used_count ?? s?.uses ?? 0;
+
+            const usageCount = Number(usageCountRaw);
+            const usageText = formatCount(usageCount);
+
             return (
               <button
                 key={s.id}
@@ -35,6 +49,21 @@ export default function StylesGrid({ category, onOpenStyle }) {
                 <div className="thumbOverlay" />
 
                 {isNew && <div className="badgeNew badgeNew--thumb">NEW</div>}
+
+                <div
+                  className={
+                    usageCount > 0
+                      ? "badgeUsage badgeUsage--thumb"
+                      : "badgeUsage badgeUsage--thumb badgeUsage--zero"
+                  }
+                  aria-label={`Использований: ${usageText}`}
+                  title={`Использований: ${usageText}`}
+                >
+                  <span className="badgeUsage__icon" aria-hidden="true">
+                    ↻
+                  </span>
+                  <span className="badgeUsage__text">{usageText}</span>
+                </div>
               </button>
             );
           })}
