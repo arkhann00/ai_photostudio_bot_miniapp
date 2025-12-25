@@ -2,6 +2,9 @@ import React from "react";
 import { toAbsUrl } from "../api.js";
 
 export default function CategoryGrid({ categories, onSelect }) {
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
   return (
     <div className="grid">
       {categories.map((c) => {
@@ -11,7 +14,7 @@ export default function CategoryGrid({ categories, onSelect }) {
         return (
           <button key={c.id} className="card" onClick={() => onSelect(c.id)}>
             <div className="cardMedia">
-              <img src={toAbsUrl(c.image_url)} alt={c.title} loading="lazy" />
+              <img src={toAbsUrl(c.image_url)} alt={c.title} loading={isAndroid ? "eager" : "lazy"} />
               <div className="cardOverlay" />
               <div className="cardMeta" />
 

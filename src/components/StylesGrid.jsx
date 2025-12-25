@@ -4,6 +4,8 @@ import { toAbsUrl } from "../api.js";
 export default function StylesGrid({ category, onOpenStyle }) {
   const styles = category.styles || [];
 
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
   const formatCount = (n) => {
     const num = Number(n);
     if (!Number.isFinite(num)) return "0";
@@ -45,7 +47,7 @@ export default function StylesGrid({ category, onOpenStyle }) {
                 aria-label={`Открыть стиль ${s.title}`}
                 title={s.title}
               >
-                <img src={toAbsUrl(s.image_url)} alt={s.title} loading="lazy" />
+                <img src={toAbsUrl(s.image_url)} alt={s.title} loading={isAndroid ? "eager" : "lazy"} />
                 <div className="thumbOverlay" />
 
                 {isNew && <div className="badgeNew badgeNew--thumb">NEW</div>}
