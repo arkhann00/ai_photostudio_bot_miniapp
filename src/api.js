@@ -2,10 +2,28 @@
 export const API_BASE = "https://api.aiphotostudio.ru";
 
 export function toAbsUrl(maybePath) {
-    if (!maybePath) return "";
-    if (maybePath.startsWith("http://") || maybePath.startsWith("https://")) return maybePath;
-    if (maybePath.startsWith("/")) return `${API_BASE}${maybePath}`;
-    return `${API_BASE}/${maybePath}`;
+  if (!maybePath) return "";
+
+  // already absolute / special
+  if (
+    maybePath.startsWith("http://") ||
+    maybePath.startsWith("https://") ||
+    maybePath.startsWith("data:") ||
+    maybePath.startsWith("blob:")
+  ) {
+    return maybePath;
+  }
+
+  // absolute path:
+  // - /static/... belongs to API
+  // - everything else (like /assets/... from Vite) should stay local
+  if (maybePath.startsWith("/")) {
+    if (maybePath.startsWith("/static/")) return `${API_BASE}${maybePath}`;
+    return maybePath;
+  }
+
+  // relative path => treat as API relative
+  return `${API_BASE}/${maybePath}`;
 }
 
 export async function fetchCatalog(gender) {
@@ -64,4 +82,26 @@ export function openBotForGeneration(styleId) {
 
     // Если открыто не внутри Telegram — обычный переход
     window.location.href = url;
+}
+
+export async function fetchTopUsedStyles(gender, limit = 10) {
+  const url = `${API_BASE}/api/styles/top-used/${encodeURIComponent(gender)}?limit=${Number(limit)}`;
+  const res = await fetch(url, { method: "GET" });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`TopUsed HTTP ${res.status}: ${text || res.statusText}`);
+  }
+  return res.json();
+}
+
+export async function fetchNewStyles(gender) {
+  const url = `${API_BASE}/api/styles/new/${encodeURIComponent(gender)}`;
+  const res = await fetch(url, { method: "GET" });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`NewStyles HTTP ${res.status}: ${text || res.statusText}`);
+  }
+  return res.json();
 }
