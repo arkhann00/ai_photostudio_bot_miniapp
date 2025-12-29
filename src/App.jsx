@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { fetchCatalog } from "./api.js";
 import TopBar from "./components/TopBar.jsx";
 import GenderToggle from "./components/GenderToggle.jsx";
 import CategoryGrid from "./components/CategoryGrid.jsx";
