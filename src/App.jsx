@@ -10,8 +10,8 @@ import newIcon from "./assets/new_icon_category.png";
 import popularIcon from "./assets/popular_icon_category.png";
 import malePopularIcon from "./assets/male_popular_icon_category.png";
 import femPopularIcon from "./assets/fem_popular_icon_category.png";
-import maleNewIcon from "./assets/male_popular_new_category.png";
-import femNewIcon from "./assets/fem_popular_new_category.png";
+import maleNewIcon from "./assets/male_new_icon_category.png";
+import femNewIcon from "./assets/fem_new_icon_category.png";
 
 export default function App() {
   const [gender, setGender] = useState("female"); // male | female
