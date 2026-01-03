@@ -8,6 +8,10 @@ import { fetchCatalog, fetchTopUsedStyles, fetchNewStyles } from "./api.js";
 
 import newIcon from "./assets/new_icon_category.png";
 import popularIcon from "./assets/popular_icon_category.png";
+import malePopularIcon from "./assets/male_popular_icon_category.png";
+import femPopularIcon from "./assets/fem_popular_icon_category.png";
+import maleNewIcon from "./assets/male_popular_new_category.png";
+import femNewIcon from "./assets/fem_popular_new_category.png";
 
 export default function App() {
   const [gender, setGender] = useState("female"); // male | female
@@ -54,7 +58,6 @@ export default function App() {
           id,
           title,
           description,
-          // важно: это локальный asset (Vite), НЕ url API
           image_url: icon,
           image_filename: null,
           is_active: true,
@@ -64,6 +67,11 @@ export default function App() {
 
         const injected = [];
 
+        // ✅ иконки зависят от пола
+        const newCategoryIcon = gender === "male" ? maleNewIcon : femNewIcon;
+        const popularCategoryIcon =
+          gender === "male" ? malePopularIcon : femPopularIcon;
+
         // NEW — показываем только если есть хотя бы 1 стиль
         if (Array.isArray(newStyles) && newStyles.length > 0) {
           injected.push(
@@ -71,19 +79,19 @@ export default function App() {
               id: -1001,
               title: "NEW",
               description: "Новые стили",
-              icon: newIcon,
+              icon: newCategoryIcon, // ✅ было newIcon
               styles: newStyles,
             })
           );
         }
 
-        // ПОПУЛЯРНОЕ — всегда есть (даже если вдруг пусто)
+        // ПОПУЛЯРНОЕ — всегда есть
         injected.push(
           mkVirtualCategory({
             id: -1002,
             title: "ПОПУЛЯРНОЕ",
             description: "Самые используемые стили",
-            icon: popularIcon,
+            icon: popularCategoryIcon, // ✅ было popularIcon
             styles: topUsed,
           })
         );
