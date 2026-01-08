@@ -637,9 +637,71 @@
 }
 
 /* Мобилка: больше места под текст, но не ломаем модалку */
-@media (max-width: 720px) {
+/* @media (max-width: 720px) {
   .sm-textScroll {
-    max-height: 22dvh; /* можно 18–28dvh по вкусу */
+    max-height: 22dvh; 
     padding-right: 8px;
+  }
+} */
+
+/* ===== Footer: fixed height, scroll text, button pinned ===== */
+
+.sm-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* чтобы футер не раздувался */
+  max-height: 240px; /* десктоп */
+  min-height: 160px;
+  overflow: hidden; /* важно: скрываем лишнее, скролл внутри текста */
+}
+
+.sm-meta {
+  flex: 1;
+  min-height: 0; /* критично для корректного overflow внутри */
+}
+
+/* текстовый блок теперь занимает всё доступное место и скроллится */
+.sm-textScroll {
+  margin-top: 6px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+}
+
+/* кнопка всегда снизу футера */
+.sm-actions {
+  flex-shrink: 0;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 720px) {
+  .sm-footer {
+    /* футер как нижняя панель, чтобы кнопка не уезжала */
+    max-height: 34dvh; /* можно 30–38dvh по вкусу */
+    min-height: 210px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .sm-actions {
+    position: sticky; /* кнопка “приклеена” внутри футера */
+    bottom: 0;
+    padding-top: 10px;
+
+    /* легкая подложка, чтобы текст под кнопкой не мешал */
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(12, 14, 28, 0.55) 35%,
+      rgba(12, 14, 28, 0.85) 100%
+    );
+    backdrop-filter: blur(10px);
+  }
+
+  .sm-primary {
+    width: 100%;
   }
 }
