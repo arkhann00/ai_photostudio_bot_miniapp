@@ -131,10 +131,6 @@ export default function StyleModal({
             <div className="sm-meta">
               <div className="sm-title">{style.title}</div>
               <div className="sm-desc">{style.description}</div>
-              <div className="sm-hint">
-                После перехода в бота выбери аватар (или загрузи новый) — и
-                генерация начнётся.
-              </div>
             </div>
 
             <div className="sm-actions">

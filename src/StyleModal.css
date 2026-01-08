@@ -79,8 +79,9 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--g1), var(--g3));
-  box-shadow: 0 0 18px rgba(90, 124, 255, 0.45);
+  /* background: linear-gradient(135deg, var(--g1), var(--g3)); */
+  background: rgba(90, 123, 255, 0);
+  box-shadow: 0 0 18px rgba(90, 123, 255, 0);
 }
 
 .sm-iconBtn {
