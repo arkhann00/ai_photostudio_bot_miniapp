@@ -130,7 +130,13 @@ export default function StyleModal({
           <div className="sm-footer">
             <div className="sm-meta">
               <div className="sm-title">{style.title}</div>
-              <div className="sm-desc">{style.description}</div>
+              <div
+                className="sm-textScroll"
+                role="region"
+                aria-label="Описание стиля"
+              >
+                <div className="sm-desc">{style.description}</div>
+              </div>
             </div>
 
             <div className="sm-actions">

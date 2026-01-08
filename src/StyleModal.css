@@ -370,7 +370,7 @@
 .sm-desc {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* аккуратное ограничение строк */
+  /* -webkit-line-clamp: 3; */
   -webkit-box-orient: vertical;
 }
 
@@ -601,5 +601,45 @@
   }
   .sm-desc {
     -webkit-line-clamp: 3;
+  }
+}
+
+/* ===== Scrollable description area ===== */
+
+/* Важно: если у тебя где-то было -webkit-line-clamp — отключаем */
+.sm-desc {
+  overflow: visible;
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+}
+
+/* Скролл внутри текста, кнопка остаётся на месте */
+.sm-textScroll {
+  margin-top: 6px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 110px; /* десктоп: аккуратно */
+  padding-right: 10px; /* место под скроллбар */
+}
+
+/* Более приятный скроллбар (Chromium/Safari) */
+.sm-textScroll::-webkit-scrollbar {
+  width: 8px;
+}
+.sm-textScroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+.sm-textScroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+
+/* Мобилка: больше места под текст, но не ломаем модалку */
+@media (max-width: 720px) {
+  .sm-textScroll {
+    max-height: 22dvh; /* можно 18–28dvh по вкусу */
+    padding-right: 8px;
   }
 }
