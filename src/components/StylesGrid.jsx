@@ -42,7 +42,7 @@ export default function StylesGrid({ category, styles = [], onOpenStyle }) {
 
             return (
               <button
-                key={s.id}
+                key={`${s.id ?? "noid"}-${i}`}
                 className="thumb"
                 onClick={() => onOpenStyle(i)}
                 aria-label={`Открыть стиль ${s.title}`}
