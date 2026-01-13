@@ -14,7 +14,7 @@ import maleNewIcon from "./assets/male_new_icon_category.png";
 import femNewIcon from "./assets/fem_new_icon_category.png";
 
 export default function App() {
-  const [gender, setGender] = useState("female"); // male | female
+  const [gender, setGender] = useState("female");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [catalog, setCatalog] = useState({ categories: [] });
@@ -26,7 +26,9 @@ export default function App() {
     return catalog.categories.find((c) => c.id === selectedCategoryId) || null;
   }, [catalog, selectedCategoryId]);
 
-  const styles = selectedCategory?.styles || [];
+  const rawStyles = selectedCategory?.styles || [];
+
+  const sortedStyles = useMemo(() => sortStyles(rawStyles), [rawStyles]);
 
   useEffect(() => {
     let cancelled = false;
@@ -117,6 +119,56 @@ export default function App() {
     };
   }, [gender]);
 
+  function sortStyles(rawStyles) {
+    const getUsage = (s) => {
+      const usageCountRaw =
+        s?.usage_count ?? s?.uses_count ?? s?.used_count ?? s?.uses ?? 0;
+      const n = Number(usageCountRaw);
+      return Number.isFinite(n) ? n : 0;
+    };
+
+    const getTime = (s) => {
+      const v =
+        s?.created_at ??
+        s?.createdAt ??
+        s?.published_at ??
+        s?.publishedAt ??
+        s?.added_at ??
+        s?.addedAt ??
+        null;
+
+      if (!v) return 0;
+      const t = Date.parse(v);
+      return Number.isFinite(t) ? t : 0;
+    };
+
+    const isNewStyle = (s) => Boolean(s?.is_new ?? s?.new);
+
+    const arr = [...(rawStyles || [])];
+    arr.sort((a, b) => {
+      const aNew = isNewStyle(a) ? 1 : 0;
+      const bNew = isNewStyle(b) ? 1 : 0;
+      if (aNew !== bNew) return bNew - aNew;
+
+      const at = getTime(a);
+      const bt = getTime(b);
+      if (at !== bt) return bt - at;
+
+      const au = getUsage(a);
+      const bu = getUsage(b);
+      if (au !== bu) return bu - au;
+
+      const aid = Number(a?.id ?? 0);
+      const bid = Number(b?.id ?? 0);
+      if (Number.isFinite(aid) && Number.isFinite(bid) && aid !== bid)
+        return bid - aid;
+
+      return String(a?.title ?? "").localeCompare(String(b?.title ?? ""), "ru");
+    });
+
+    return arr;
+  }
+
   const title = selectedCategory ? selectedCategory.title : "Ai Photo-Studio";
 
   return (
@@ -169,6 +221,7 @@ export default function App() {
 
         {!loading && !error && selectedCategory && (
           <StylesGrid
+            styles={sortedStyles}
             category={selectedCategory}
             onOpenStyle={(index) => setModalStyleIndex(index)}
           />
@@ -177,14 +230,14 @@ export default function App() {
 
       <StyleModal
         open={modalStyleIndex >= 0}
-        styles={styles}
+        styles={sortedStyles}
         index={modalStyleIndex}
         onClose={() => setModalStyleIndex(-1)}
         onPrev={() =>
-          setModalStyleIndex((i) => (i <= 0 ? styles.length - 1 : i - 1))
+          setModalStyleIndex((i) => (i <= 0 ? sortedStyles.length - 1 : i - 1))
         }
         onNext={() =>
-          setModalStyleIndex((i) => (i >= styles.length - 1 ? 0 : i + 1))
+          setModalStyleIndex((i) => (i >= sortedStyles.length - 1 ? 0 : i + 1))
         }
       />
     </div>
